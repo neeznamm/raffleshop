@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&family=Lekton&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    {% load bootstrap5 static %} {% bootstrap_css %} {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    {% block smallnav %}
+    <div
+      class="d-flex justify-content-lg-end justify-content-center mx-0 mx-lg-5"
+    >
+      <div class="smallnav my-3">
+        <a class="mx-3" href="#">FAQ</a>
+        <a class="mx-3" href="#">TERMS & CONDITIONS</a>
+        <a class="mx-3" href="#">PRIVACY POLICY</a>
+      </div>
+    </div>
+    {% endblock %}
+    <!-- -->
+    {% block logo %}{% endblock %}
+    <!-- -->
+    {% block navbar %}
+    <nav class="navbar-expand-lg navbar-dark text-center">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-end"
+        id="navbarNavAltMarkup"
+      >
+        <div class="navbar-nav mx-5 mt-4 mt-lg-0">
+          <a class="nav-item nav-link active mx-4 px-3" href="#">HOME</a>
+          <a class="nav-item nav-link mx-4 px-3" href="#">FOR SELLERS</a>
+          <a class="nav-item nav-link mx-4 px-3" href="#">ABOUT</a>
+          <a class="nav-item nav-link mx-4 px-3" href="#"
+            >LOG IN
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              fill="currentColor"
+              class="bi bi-arrow-right"
+              viewBox="0 0 16 18"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+              /></svg
+          ></a>
+        </div>
+      </div>
+    </nav>
+    {% endblock %} {% block content %} {% endblock %}
+  </body>
+</html>
