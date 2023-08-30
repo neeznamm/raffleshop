@@ -1,0 +1,378 @@
+{% load crispy_forms_filters %} {% load crispy_forms_tags %}
+<!---->
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&family=Lekton&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+    <meta charset="UTF-8" />
+    <title>raffleshop | Sellers</title>
+    {% load bootstrap5 static %} {% bootstrap_css %} {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <style>
+      body {
+        overflow-x: hidden;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="sellers container-fluid bg-light text-dark mx-0 px-0">
+      <div class="row">
+        <div class="col-lg-2 px-5 py-3">
+          <a class="d-inline-block" href="/">
+            <img
+              class="logo-top-center"
+              src="{% static 'img/logo-light.png' %}"
+              width="100%"
+              height="auto"
+            />
+          </a>
+          <div class="dotted-hr my-3 opacity-50"></div>
+          <div class="inter fw-bold my-4 sellers-menu-item active p-2">
+            <a href="#" class="text-reset text-decoration-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                class="bi bi-briefcase-fill me-2 mb-1"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"
+                />
+                <path
+                  d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"
+                />
+              </svg>
+              Raffles
+            </a>
+          </div>
+          <div class="inter fw-bold my-4 text-secondary sellers-menu-item p-2">
+            <a href="#" class="text-reset text-decoration-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                class="bi bi-person-fill me-2 mb-1"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                />
+              </svg>
+              Customers
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-8 ps-lg-5 px-5 py-3">
+          <h2 class="h2 inter fw-bold">Raffle list</h2>
+          <h3 class="h6 inter text-secondary">
+            Detailed information about raffles you've held
+          </h3>
+          <button
+            class="btn btn-primary inter fw-bold p-3 mt-3"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModalCenter"
+          >
+            + New Raffle
+          </button>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModalCenter"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5
+                    class="modal-title fw-bold inter"
+                    id="exampleModalLongTitle"
+                  >
+                    Shipping information and raffle timing
+                  </h5>
+                </div>
+                <div class="modal-body inter">
+                  <form
+                    id="create-raffle"
+                    method="post"
+                    action="/create_raffle_second/"
+                    enctype="multipart/form-data"
+                  >
+                    {% csrf_token %}
+                    <p class="fw-bold mt-3">
+                      Width <span class="text-danger">*</span>
+                    </p>
+                    <input
+                      form="create-raffle"
+                      type="text"
+                      id="width"
+                      name="width"
+                      class="form-control text-dark my-0"
+                      required
+                    />
+                    <p class="fw-bold mt-3">
+                      Height <span class="text-danger">*</span>
+                    </p>
+                    <input
+                      form="create-raffle"
+                      type="text"
+                      id="height"
+                      name="height"
+                      class="form-control text-dark my-0"
+                      required
+                    />
+                    <p class="fw-bold mt-3">
+                      Depth <span class="text-danger">*</span>
+                    </p>
+                    <input
+                      form="create-raffle"
+                      type="text"
+                      id="depth"
+                      name="depth"
+                      class="form-control text-dark my-0"
+                      required
+                    />
+                    <p class="fw-bold mt-3">
+                      Weight <span class="text-danger">*</span>
+                    </p>
+                    <input
+                      form="create-raffle"
+                      type="text"
+                      id="weight"
+                      name="weight"
+                      class="form-control text-dark my-0"
+                      required
+                    />
+                    <p class="fw-bold mt-3">
+                      Shipping locations <span class="text-danger">*</span>
+                    </p>
+                    <div class="form-check">
+                      {% for loc in shipping_locations %}
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="{{ loc.0 }}"
+                          id="flexCheckDefault"
+                        />
+                        <label
+                          class="form-check-label my-0 py-0"
+                          for="flexCheckDefault"
+                        >
+                          {{ loc.1 }}
+                        </label>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <p class="fw-bold mt-3">
+                      Begin Date and time <span class="text-danger">*</span>
+                    </p>
+                    <input
+                      form="create-raffle"
+                      type="datetime-local"
+                      id="begin_datetime"
+                      name="begin_datetime"
+                      class="form-control text-dark my-0"
+                    />
+
+                    <p class="fw-bold mt-3">
+                      End Date and time <span class="text-danger">*</span>
+                    </p>
+                    <input
+                      form="create-raffle"
+                      type="datetime-local"
+                      id="end_datetime"
+                      name="end_datetime"
+                      class="form-control text-dark my-0"
+                    />
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    class="btn btn-secondary inter"
+                    onclick="history.back()"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    form="create-raffle"
+                    type="submit"
+                    class="btn btn-primary inter"
+                  >
+                    Create raffle
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive inter my-5">
+            <table
+              class="table table-borderless rounded rounded-3 overflow-hidden border-0 table-dashboard"
+            >
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    class="text-secondary align-middle text-center"
+                  ></th>
+                  <th
+                    scope="col"
+                    class="text-secondary align-middle text-center"
+                  >
+                    Product name
+                  </th>
+                  <th
+                    scope="col"
+                    class="text-secondary align-middle text-center"
+                  >
+                    Stock
+                  </th>
+                  <th
+                    scope="col"
+                    class="text-secondary align-middle text-center"
+                  >
+                    Ticket price
+                  </th>
+                  <th
+                    scope="col"
+                    class="text-secondary align-middle text-center"
+                  >
+                    Product price
+                  </th>
+                  <th
+                    scope="col"
+                    class="text-secondary align-middle text-center"
+                  >
+                    Time till draw
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                {% for raffle in raffles %}
+                <tr>
+                  <td class="align-middle table-data-image">
+                    {% with images_list=raffle.product.images.all %}
+                    <img
+                      src="{{ images_list.3.file.url }}"
+                      width="10%"
+                      height="auto"
+                      alt="Product Image"
+                    />
+                    {% endwith %}
+                  </td>
+                  <td class="align-middle fw-bold">
+                    {{ raffle.product.series.name }} {{ raffle.product.name }}
+                  </td>
+                  <td class="align-middle">{{ raffle.num_pairs }}</td>
+                  <td class="align-middle">{{ raffle.ticket_price }}</td>
+                  <td class="align-middle">{{ raffle.product_price }}</td>
+                  <td class="align-middle">
+                    {% with time_info=raffle.end_datetime|remaining_time %}
+                    <!---->
+                    {% if time_info.1 %}
+                    <!---->
+                    <span class="text-success">{{ time_info.0 }}</span>
+                    <!---->
+                    {% else %}
+                    <!---->
+                    OVER
+                    <!-- -->
+                    {% endif %}
+                    <!-- -->
+                    {% endwith %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="col-lg-2 px-5 py-3 my-lg-0 my-3 small text-lg-end text-center"
+        >
+          <a
+            href="#"
+            class="text-secondary text-decoration-none inter fw-bold d-block mb-3"
+            ><img
+              src="{% static 'img/user-img.png' %}"
+              width="25px"
+              height="auto"
+              class="me-2"
+            />
+            {{ user.first_name }}</a
+          >
+          <a
+            href="#"
+            class="text-secondary text-decoration-none inter fw-bold d-block mb-3"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-gear me-2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
+              />
+              <path
+                d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
+              />
+            </svg>
+            Settings
+          </a>
+          <a
+            href="/logout/"
+            class="text-secondary text-decoration-none inter fw-bold d-block"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-box-arrow-left me-2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+              />
+            </svg>
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var myModal = new bootstrap.Modal(
+        document.getElementById("exampleModalCenter"),
+        {}
+      );
+      myModal.toggle();
+    </script>
+  </body>
+</html>

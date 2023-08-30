@@ -1,0 +1,56 @@
+{% load crispy_forms_filters %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&family=Lekton&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+    <meta charset="UTF-8" />
+    <title>raffleshop | Login</title>
+    {% load bootstrap5 static %} {% bootstrap_css %} {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body class="bg-light">
+    <div
+      class="sellers container d-flex justify-content-center align-items-center flex-column bg-light text-dark"
+    >
+      <a class="d-inline-block text-center mt-5" href="/">
+        <img
+          class="my-5 logo-top-center"
+          src="{% static 'img/logo-light.png' %}"
+          width="70%"
+          height="auto"
+        />
+      </a>
+      {% if messages %}
+      <!-- -->
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mb-5" role="alert">
+        <p class="d-inline">{{ message }}</p>
+      </div>
+      {% endfor %}
+      <!-- -->
+      {% endif %}
+      <div class="form">
+        <p class="mb-4">
+          Interested in selling?
+          <a class="fw-bold text-reset" href="#">Get in touch with us!</a>
+        </p>
+        <form method="POST" class="form-light">
+          {% csrf_token %} {{ login_form|crispy }}
+          <button class="btn btn-primary w-100 my-5" type="submit">
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

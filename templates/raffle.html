@@ -1,0 +1,373 @@
+{% extends "base.html" %} {% load custom_filters %}
+<!---->
+{% load static %}
+<!-- -->
+{% block logo %}
+<a href="/" class="d-lg-inline-block"
+  ><div class="logo-big mx-5 my-5 my-lg-0"></div
+></a>
+{% endblock %}
+<!-- -->
+{% block navbar %}
+<nav class="navbar-expand-lg navbar-dark text-center main-menu">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div
+    class="collapse navbar-collapse justify-content-end"
+    id="navbarNavAltMarkup"
+  >
+    <div class="navbar-nav mx-5 mt-4 mt-lg-5 w-100">
+      <div class="dropdown mx-lg-4 mx-auto px-3 brands-dropdown">
+        <button
+          class="btn dropdown-toggle btn-transparent text-white py-0 my-0"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {% if raffle.product.series.brand.first_name == 'Nike' %}
+          <img src="{% static 'img/nike.png' %}" width="40px" height="auto" />
+          {% endif %}
+          <!---->
+          {% if raffle.product.series.brand.first_name == 'New Balance' %}
+          <img src="{% static 'img/nb.png' %}" width="40px" height="auto" />
+          {% endif %}
+          <!---->
+          {% if raffle.product.series.brand.first_name == 'Adidas' %}
+          <img src="{% static 'img/adidas.png' %}" width="40px" height="auto" />
+          {% endif %}
+          <!---->
+          {% if raffle.product.series.brand.first_name == 'Air Jordan' %}
+          <img src="{% static 'img/air.png' %}" width="40px" height="auto" />
+          {% endif %}
+        </button>
+        <ul class="dropdown-menu bg-dark text-center brands-dropdown-menu">
+          <li>
+            <a class="dropdown-item" href="/#nike">
+              <img
+                src="{% static 'img/nike.png' %}"
+                width="40px"
+                height="auto"
+              />
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/#nb">
+              <img src="{% static 'img/nb.png' %}" width="40px" height="auto" />
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/#adidas">
+              <img
+                src="{% static 'img/adidas.png' %}"
+                width="40px"
+                height="auto"
+              />
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/#air">
+              <img
+                src="{% static 'img/air.png' %}"
+                width="40px"
+                height="auto"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+      <a class="nav-item nav-link" href="#">/</a>
+      <a class="nav-item nav-link mx-4 px-3 me-lg-auto active" href="#"
+        >{{ raffle.product.series.name }} {{ raffle.product.name }}</a
+      >
+      <a class="nav-item nav-link mx-4 px-3" href="/">HOME</a>
+      <a class="nav-item nav-link mx-4 px-3" href="/sellers/">FOR SELLERS</a>
+      {% if user.is_authenticated %}
+      <a class="nav-item nav-link mx-4 px-3" href="/cart/">
+        <img
+          class="ticketimg"
+          src="{% static 'img/ticket.png' %}"
+          width="25px"
+          height="auto"
+        />
+        ({{ user.user_profile.shopping_cart.tickets.count }} tickets)
+        <img src="{% static 'img/user-img.png' %}" width="25px" height="auto" />
+        {{ user.username }}
+      </a>
+      <a class="nav-item nav-link mx-4 px-3" href="/logout/"
+        >LOG OUT
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          fill="currentColor"
+          class="bi bi-arrow-right"
+          viewBox="0 0 16 18"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+          /></svg
+      ></a>
+      {% else %}
+      <a class="nav-item nav-link mx-4 px-3" href="/login/"
+        >LOG IN
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          fill="currentColor"
+          class="bi bi-arrow-right"
+          viewBox="0 0 16 18"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+          /></svg
+      ></a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+<div class="content mx-5">
+  {% if messages %}
+  <!-- -->
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} my-5" role="alert">
+    <p class="d-inline">{{ message }}</p>
+  </div>
+  {% endfor %}
+  <!-- -->
+  {% endif %}
+  <h1 class="my-5 py-md-5 py-0 text-md-start text-center">
+    {{ raffle.product.series.name }} {{ raffle.product.name }}
+  </h1>
+  <div class="row mx-0 mx-md-5 gx-5">
+    <div class="col-md-6 text-md-start text-center mb-md-0 mb-5">
+      <div class="row gx-0 gx-md-5">
+        <div class="col">
+          <button data-bs-toggle="modal" data-bs-target=".img0-modal">
+            <img
+              src="{{ raffle.product.images.all.0.file.url }}"
+              width="100%"
+              height="auto"
+              class="product-gallery-img border-0"
+            />
+          </button>
+        </div>
+        <div class="col">
+          <button
+            data-bs-toggle="modal"
+            data-bs-target=".img1-modal"
+            class="p-0 mb-3 w-75 border-0"
+          >
+            <img
+              src="{{ raffle.product.images.all.1.file.url }}"
+              width="100%"
+              height="auto"
+              class="product-gallery-img"
+            />
+          </button>
+          <button
+            data-bs-toggle="modal"
+            data-bs-target=".img2-modal"
+            class="p-0 w-75 border-0"
+          >
+            <img
+              src="{{ raffle.product.images.all.2.file.url }}"
+              width="100%"
+              height="auto"
+              class="product-gallery-img"
+            />
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="modal fade img0-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="Sneaker Image Modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg text-center">
+          <img
+            src="{{ raffle.product.images.all.0.file.url }}"
+            width="100%"
+            height="auto"
+          />
+        </div>
+      </div>
+      <!---->
+      <div
+        class="modal fade img1-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="Sneaker Image Modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-dialog-centered text-center">
+          <img
+            src="{{ raffle.product.images.all.1.file.url }}"
+            width="100%"
+            height="auto"
+          />
+        </div>
+      </div>
+      <!---->
+      <div
+        class="modal fade img2-modal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="Sneaker Image Modal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg text-center">
+          <img
+            src="{{ raffle.product.images.all.2.file.url }}"
+            width="100%"
+            height="auto"
+          />
+        </div>
+      </div>
+      <!---->
+      <div class="enroll mt-5 mt-md-0">
+        {% with time_info=raffle.end_datetime|remaining_time %}
+        <!-- -->
+        {% if time_info.1 %}
+        <form action="/raffle/{{ raffle.id }}/" method="post">
+          {% csrf_token %}
+          <button
+            class="btn btn-transparent text-white {% if already_has_ticket %} disabled {% endif %}"
+            type="submit"
+          >
+            <img
+              src="{% static 'img/ticketplus.png' %}"
+              width="20%"
+              height="auto"
+              class="mb-2 {% if already_has_ticket %} opacity-50 {% endif %}"
+            />
+            <h3
+              class="d-inline mb-0 ms-2 {% if already_has_ticket %} text-secondary {% endif %}"
+            >
+              ENROLL
+            </h3>
+          </button>
+        </form>
+        <img
+          class="d-block mx-md-0 mx-auto mb-2 {% if already_has_ticket %} opacity-25 {% endif %}"
+          src="{% static 'img/arrow-horizontal.png' %}"
+          width="30%"
+          height="auto"
+        />
+        {% endif %}
+        <!-- -->
+        {% if not time_info.1 %}
+        <div class="my-5"></div>
+        {% endif %}
+        <!-- -->
+        {% endwith %}
+        <span class="product-price h5">{{ raffle.product_price }}, </span>
+        {% with time_info=raffle.end_datetime|remaining_time %}
+        <!---->
+        {% if time_info.1 %}
+        <span class="remaining-time fw-bold h5">{{ time_info.0 }} LEFT</span>
+        {% else %}
+        <span class="remaining-time fw-bold text-secondary h5">
+          RAFFLE ENDED {{ time_info.0 }} AGO
+        </span>
+        {% endif %} {% endwith %}
+        <p class="mt-3 fst-italic">
+          <!-- prettier-ignore -->
+          Available only in: {{ raffle.shipping_info.shipping_locations }}
+        </p>
+        {% if already_has_ticket and not has_bought_ticket %}
+        <div class="alert alert-secondary my-5" role="alert">
+          <p class="h4 alert-heading">Almost there!</p>
+          <p>
+            You have added a ticket for this raffle to your
+            <a href="/cart/" class="text-reset">cart</a>, but you haven't
+            purchased it yet. When you're ready, you can do so by clicking on
+            the checkout option and specifying your delivery address, as well as
+            preferred payment option.
+          </p>
+          <hr />
+          <p class="mb-0">
+            Once you've finished that, all you have to do is wait for an email
+            notification to see whether you've won.
+          </p>
+        </div>
+        {% endif %}
+        <!---->
+        {% if has_bought_ticket %}
+        <div class="alert alert-success my-5" role="alert">
+          <p class="h4 alert-heading">Hooray!</p>
+          <p>
+            You have purchased a ticket for this raffle, best of luck in the
+            draw! Make sure to check your email near the raffle ending date to
+            see whether you've won.
+          </p>
+        </div>
+        {% endif %}
+      </div>
+      <div class="dotted-hr mt-5"></div>
+      <div class="pt-md-5 other-models-md">
+        <h4 class="fst-italic mb-5">Other sneaker models from this brand</h4>
+        <div class="row gy-3">
+          {% for series in series_from_brand %}
+          <div class="col-lg-3 col-md-4 text-center">
+            <a
+              href="/model/{{ series.id }}/"
+              class="text-decoration-none text-white"
+            >
+              <img
+                src="{{ series.images.all.0.file.url }}"
+                width="100%"
+                height="auto"
+                class="p-3 series-image"
+              />
+              <span class="h6">{{ series.name }}</span>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p class="lh-lg">{{ raffle.product.description }}</p>
+    </div>
+    <div class="pt-md-5 other-models-sm">
+      <div class="dotted-hr my-5"></div>
+      <h4 class="fst-italic mb-5">Other sneaker models from this brand</h4>
+      <div class="row gy-3">
+        {% for series in series_from_brand %}
+        <div class="col-6 text-center">
+          <a
+            href="/model/{{ series.id }}/"
+            class="text-decoration-none text-white"
+          >
+            <img
+              src="{{ series.images.all.0.file.url }}"
+              width="100%"
+              height="auto"
+              class="p-3 series-image"
+            />
+            <span class="h6">{{ series.name }}</span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- -->
+{% block content %} {% endblock %}

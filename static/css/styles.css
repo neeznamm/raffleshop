@@ -37,7 +37,7 @@ body {
   position: relative;
 }
 
-a.active {
+.main-menu > .navbar-collapse > .navbar-nav > a.active {
   border-radius: 3px;
   background: linear-gradient(
       0deg,
@@ -53,6 +53,7 @@ a.active {
   background-repeat: no-repeat;
   background-size: contain;
   height: 4em;
+  width: 16rem;
 }
 
 .smallnav {
@@ -62,6 +63,10 @@ a.active {
 .smallnav > a {
   color: grey;
   text-decoration: underline;
+}
+
+.copyright {
+  color: grey !important;
 }
 
 .hero-first-part {
@@ -127,19 +132,6 @@ a.active {
     url("data:image/svg+xml,%3Csvg viewBox='0 0 227 227' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='6.73' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.hero-first-part > h1 {
-  font-size: 4rem;
-  font-family: "Inter", sans-serif;
-  font-weight: bold;
-  color: white;
-  overflow: hidden;
-}
-
-.hero-first-part > h1 > span {
-  background-color: rgb(56, 59, 56);
-  padding: 5px;
-}
-
 .explore {
   background-image: url("/static/img/arrow.png");
   background-repeat: no-repeat;
@@ -148,9 +140,312 @@ a.active {
 
 .explore > h2 {
   writing-mode: vertical-lr;
-  text-orientation: upright;
-  letter-spacing: 0.3rem;
+  letter-spacing: 1.3rem;
   font-weight: bold;
+}
+
+.brands-menu a:not(.active) > img {
+  opacity: 30%;
+}
+
+p,
+.sort-dropdown-menu > li > a,
+.btn-sort {
+  font-family: Inter, sans-serif;
+}
+
+.blurry-bg {
+  padding: 10px;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #9b4a4a 0%,
+    rgba(183, 160, 160, 0.572917) 42.71%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  background-blend-mode: exclusion !important;
+}
+
+.sneaker-pair {
+  filter: blur(0.2px) drop-shadow(36px 22px 4px rgba(0, 0, 0, 0.25));
+}
+
+.sneaker-pair.table-image {
+  filter: blur(0.4px) drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.25));
+}
+
+.remaining-time,
+.product-price {
+  font-family: Lekton, sans-serif;
+  color: #9b4a4a;
+}
+
+.product-name-small {
+  font-family: Lekton, sans-serif;
+}
+
+.sort-dropdown,
+.brands-dropdown {
+  width: fit-content;
+  position: relative;
+}
+
+.sort-dropdown-menu,
+.brands-dropdown-menu {
+  width: 100%;
+}
+
+.bg-dark > li > a.dropdown-item:hover {
+  background-color: #9b4a4a !important;
+}
+
+.sneaker-card,
+.product-gallery-img,
+.series-image,
+.btn-primary {
+  transition: opacity 0.2s ease-out !important;
+}
+
+.sneaker-card:hover,
+.product-gallery-img:hover,
+.series-image:hover,
+.btn-primary:hover {
+  opacity: 0.3 !important;
+}
+
+.brand-filter:hover {
+  background-color: #9b4a4a !important;
+}
+
+.dotted-hr {
+  position: relative;
+  height: 1px;
+  background-color: #aeaeae;
+  padding: 0 10px;
+}
+
+.dotted-hr::before,
+.dotted-hr::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #aeaeae;
+}
+
+.dotted-hr::before {
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.dotted-hr::after {
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.other-models-sm {
+  display: none;
+}
+
+.login-art {
+  background-image: url("/static/img/art/login-img.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.register-art {
+  background-image: url("/static/img/art/register-img.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.checkout-art {
+  background-image: url("/static/img/art/bag.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  position: fixed;
+  right: 0;
+  height: 100%;
+}
+
+.login,
+.register,
+.checkout {
+  height: 100vh !important;
+}
+
+.btn-primary {
+  background-color: #9b4a4a !important;
+  border: none !important;
+  border-radius: 15px !important;
+}
+
+input {
+  background-color: transparent !important;
+  border-radius: 15px !important;
+  margin: 5px 0;
+  color: white !important;
+}
+
+.form-light input {
+  color: #000 !important;
+}
+
+label {
+  margin: 10px 0 !important;
+}
+
+small > ul {
+  margin: 10px 0 !important;
+}
+
+.alert.alert-block.alert-danger {
+  display: none !important;
+}
+
+.active > .ticketimg {
+  filter: invert(1) !important;
+}
+
+.table-cart th {
+  background-color: #9b4a4a7c !important;
+}
+
+.table-dashboard th {
+  background-color: #e5e5e5 !important;
+}
+
+.checkout-art > ol {
+  position: absolute;
+  top: 35%;
+  right: 7%;
+}
+
+.checkout-art > .dotted-hr {
+  position: absolute;
+  top: 75%;
+  right: 5%;
+  width: 55%;
+}
+
+.checkout-art > .total-ticket-price {
+  position: absolute;
+  top: 80%;
+  right: 10%;
+}
+
+.inter {
+  font-family: Inter, sans-serif;
+}
+
+.lh-2 {
+  line-height: 2;
+}
+
+.bag-small > ol {
+  list-style-position: inside;
+}
+
+.checkout-step {
+  font-weight: bold !important;
+}
+
+.checkout-step.red {
+  color: #9b4a4a !important;
+}
+
+#addAddressSection,
+#addPaymentSection {
+  position: relative;
+}
+
+#close-new-address-section {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+#close-new-payment-section {
+  position: absolute;
+  top: 3%;
+  right: 5%;
+}
+
+.explore,
+.logo-big,
+.logo-top-center,
+#logo-checkout,
+.enroll > form > button {
+  transition: filter 0.5s ease;
+}
+
+.explore:hover {
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 10px #fff);
+}
+
+.logo-big:hover,
+.logo-top-center:hover,
+#logo-checkout:hover,
+.enroll > form > button:hover {
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 5px #fff);
+}
+
+#visa {
+  background-image: url("/static/img/visa.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 50px;
+}
+
+#maestro {
+  background-image: url("/static/img/maestro.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 50px;
+}
+
+#mastercard {
+  background-image: url("/static/img/mastercard.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 50px;
+}
+
+#payoneer {
+  background-image: url("/static/img/payoneer.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 50px;
+}
+
+select:active,
+select:hover {
+  outline: none;
+}
+
+.btn {
+  white-space: normal !important;
+  word-wrap: break-word;
+}
+
+.sellers-menu-item.active {
+  color: #9b4a4a !important;
+  background-color: #e5e5e5;
+  border-radius: 4px;
+}
+
+.table-data-image {
+  max-width: 200px !important;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -161,28 +456,46 @@ a.active {
 }
 
 @media only screen and (max-width: 992px) {
-  .hero-first-part > h1 {
-    display: none;
-  }
-
   .hero-first-part,
   .hero-second-part {
     min-width: 40%;
+  }
+
+  .navbar-nav {
+    width: auto !important;
   }
 }
 
 @media only screen and (max-width: 991px) {
   .logo-big {
     background-position: center;
+    width: auto;
+  }
+
+  .login-art {
+    display: none;
+  }
+
+  .register-art {
+    display: none;
+  }
+
+  .checkout-art {
+    display: none;
+  }
+
+  .bag-small {
+    display: block !important;
   }
 }
 
 @media only screen and (max-width: 768px) {
   .explore > h2 {
-    letter-spacing: 0.6rem;
+    letter-spacing: 1.5rem;
   }
   .logo-big {
     background-position: center;
+    width: auto;
   }
   .smallnav {
     font-size: 0.8rem;
@@ -191,5 +504,37 @@ a.active {
   .hero-second-part {
     min-width: 30%;
     background-position: left;
+  }
+
+  .other-models-md {
+    display: none;
+  }
+
+  .other-models-sm {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 641px) {
+  .progressline {
+    width: 100%;
+    height: auto;
+  }
+
+  .checkout {
+    overflow-x: hidden;
+  }
+}
+
+@media only screen and (max-width: 441px) {
+  .progress-names {
+    font-size: 0.7rem;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .progress-names > p {
+    margin-left: 40px !important;
+    margin-right: 40px !important;
   }
 }

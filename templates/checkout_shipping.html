@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&family=Lekton&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+    <meta charset="UTF-8" />
+    <title>raffleshop | Checkout</title>
+    {% load bootstrap5 static %} {% bootstrap_css %} {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="row mx-auto checkout">
+      <div
+        class="col-lg-6 d-flex flex-column justify-content-center align-items-center"
+      >
+        <a class="d-inline-block text-center" href="/">
+          <img
+            id="logo-checkout"
+            class="my-5 mt-lg-0"
+            src="{% static 'img/logo.png' %}"
+            width="60%"
+            height="auto"
+          />
+        </a>
+        <div class="d-flex progress-names text-nowrap">
+          <a href="/cart/" class="text-decoration-none text-reset"
+            ><p class="mx-5 pe-sm-5 checkout-step red">Ticket choice</p></a
+          >
+          <a href="/checkout/shipping/" class="text-decoration-none text-reset"
+            ><p class="mx-5 checkout-step red">Shipping</p></a
+          >
+          <a href="#" class="text-decoration-none text-reset"
+            ><p class="mx-5 ps-sm-5 checkout-step">Payment</p></a
+          >
+        </div>
+        <img src="{% static 'img/progress.png' %}" class="progressline mb-5" />
+        <form id="to-payment" action="/checkout/to_payment/" method="post">
+          {% csrf_token %}
+        </form>
+        <form id="new-address" method="post">
+          {% csrf_token %}
+          <div class="mt-4">
+            <h2 class="h5 mb-3 inter">
+              Select Delivery Address
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                fill="currentColor"
+                class="bi bi-geo-alt-fill ms-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
+                />
+              </svg>
+            </h2>
+            {% if user.delivery_addresses.all %}
+            <!--  -->
+            {% for address in user.delivery_addresses.all %}
+            <div class="form-check px-0">
+              <input
+                form="to-payment"
+                type="radio"
+                class="btn-check"
+                name="existing_address"
+                id="existing_address_{{ address.id }}"
+                value="{{ address.id }}"
+                autocomplete="off"
+                required
+              />
+              <label
+                class="btn btn-outline-secondary inter"
+                for="existing_address_{{ address.id }}"
+              >
+                <!-- prettier-ignore -->
+                {{ address.city }}, {{ address.street }}, {{ address.postal_code }}
+              </label>
+            </div>
+            {% endfor %}
+            <!-- -->
+            {% else %}
+            <p>You haven't specified any delivery address yet.</p>
+            <select
+              form="to-payment"
+              class="opacity-0 p-0 m-0"
+              required
+            ></select>
+            {% endif %}
+          </div>
+          <div class="mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-light inter"
+              id="showAddAddress"
+            >
+              Add New Address +
+            </button>
+            <div
+              class="mt-3 bg-dark p-3 rounded rounded-3"
+              id="addAddressSection"
+              style="display: none"
+            >
+              <button
+                id="close-new-address-section"
+                type="button"
+                class="btn-close btn-close-white"
+                aria-label="Close"
+              ></button>
+              <h2 class="h5 inter mb-3">Add New Address</h2>
+              <div class="mb-3">
+                <input
+                  form="new-address"
+                  type="text"
+                  class="form-control"
+                  id="new_city"
+                  name="new_city"
+                  placeholder="City"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  form="new-address"
+                  class="form-control"
+                  id="new_street"
+                  name="new_street"
+                  placeholder="Street"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  form="new-address"
+                  type="text"
+                  class="form-control"
+                  id="new_postal_code"
+                  name="new_postal_code"
+                  placeholder="Postal Code"
+                  required
+                />
+              </div>
+              <button
+                form="new-address"
+                type="submit"
+                class="btn btn-secondary my-3"
+              >
+                Save New Address
+              </button>
+            </div>
+          </div>
+          <button
+            form="to-payment"
+            type="submit"
+            class="btn btn-primary mt-5 btn-block w-100 mb-lg-5"
+          >
+            Go to payment
+          </button>
+        </form>
+      </div>
+      <div class="col-lg-6 checkout-art">
+        <ol>
+          {% for ticket in tickets %}
+          <!-- prettier-ignore -->
+          <li><p>{{ ticket.raffle.product.series.brand.first_name }} {{ ticket.raffle.product.series.name }} {{ ticket.raffle.product.name }} ticket <span class="fw-bold">({{ ticket.raffle.ticket_price }})</span></p></li>
+          {% endfor %}
+        </ol>
+        <div class="dotted-hr"></div>
+        <h3 class="h3 total-ticket-price">TOTAL: {{ total_ticket_price }}</h3>
+      </div>
+      <div class="bag-small text-center d-none my-5">
+        <ol class="mx-0 px-0">
+          {% for ticket in tickets %}
+          <!-- prettier-ignore -->
+          <li><span class="inter lh-2">{{ ticket.raffle.product.series.brand.first_name }} {{ ticket.raffle.product.series.name }} {{ ticket.raffle.product.name }} ticket <span class="fw-bold">({{ ticket.raffle.ticket_price }})</span></span></li>
+          {% endfor %}
+        </ol>
+        <div class="dotted-hr mt-5 mb-3"></div>
+        <h3 class="h3 total-ticket-price">TOTAL: {{ total_ticket_price }}</h3>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("showAddAddress")
+        .addEventListener("click", function () {
+          document.getElementById("showAddAddress").style.display = "none";
+          document.getElementById("addAddressSection").style.display = "block";
+          document.getElementById("logo-checkout").classList.add("mt-lg-5");
+        });
+
+      document
+        .getElementById("close-new-address-section")
+        .addEventListener("click", function () {
+          document.getElementById("addAddressSection").style.display = "none";
+          document.getElementById("showAddAddress").style.display = "block";
+        });
+    </script>
+  </body>
+</html>
